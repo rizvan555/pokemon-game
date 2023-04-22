@@ -5,52 +5,66 @@ import { CgDarkMode } from "react-icons/cg";
 import { Link } from "react-router-dom";
 
 const MainContainer = styled.main`
-  background-color: red;
   margin: 0 auto;
-  padding: 20px;
-
   .title-box {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 20px;
+    color: #fff;
   }
 `;
 const SearchContainer = styled.section`
   display: flex;
   justify-content: center;
+  margin-bottom: 20px;
   padding: 10px;
   gap: 1vw;
   input {
-    width: 40vw;
-    border-radius: 5px;
+    width: 50vw;
+    border-radius: 20px;
     border: none;
     padding: 5px;
+    ::placeholder {
+      padding: 5px;
+    }
   }
   button {
-    border-radius: 5px;
+    border-radius: 20px;
     border: none;
+    padding: 0 10px;
   }
 `;
-const PokemonContainer = styled(Link)`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  width: 90vw;
-  margin: 0 auto;
-  background-color: #fff;
-  border-radius: 5px;
-  text-decoration: none;
 
+const ContainStyle = styled.section`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 80vw;
+  flex-wrap: wrap;
+  margin: 0 auto;
+`;
+const PokemonContainer = styled(Link)`
+  text-decoration: none;
   .pokemon-box {
     display: flex;
     flex-direction: column;
-    width: 20vw;
+    width: 25vw;
+    height: 37vh;
     border: 1px solid #e5e5e5;
-    border-radius: 5px;
+    border-radius: 10px;
     margin: 1vw;
     text-align: center;
+    line-height: 1px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
     h1 {
       font-size: 20px;
+      letter-spacing: 1px;
+    }
+    img {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto;
     }
   }
 `;
@@ -115,8 +129,8 @@ const Search = () => {
   return (
     <MainContainer
       style={{
-        color: light ? "black" : "red",
-        backgroundColor: light ? "red" : "black",
+        color: light ? "black" : "#dc0c2d",
+        backgroundColor: light ? "#dc0c2d" : "black",
         height: "100%",
       }}
     >
@@ -136,7 +150,7 @@ const Search = () => {
         <button onClick={searchFunction}>Search</button>
       </SearchContainer>
 
-      <>
+      <ContainStyle>
         {selectedPokemonDetails ? (
           <ResultContainer style={{ height: "100vh" }}>
             <ImBackward onClick={handleGoBack} />
@@ -177,6 +191,10 @@ const Search = () => {
                   className="pokemon-box"
                   key={pokemon.name}
                   onClick={() => setSelectedPokemon(pokemon)}
+                  style={{
+                    backgroundColor: light ? "white" : "red",
+                    color: light ? "#000" : "#fff",
+                  }}
                 >
                   <p className="pokemonId">#{myIdNumber}</p>
                   <img src={myImageUrl} alt={pokemon.name} />
@@ -189,7 +207,7 @@ const Search = () => {
             );
           })
         )}
-      </>
+      </ContainStyle>
     </MainContainer>
   );
 };
