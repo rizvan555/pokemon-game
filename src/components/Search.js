@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { ImBackward } from "react-icons/im";
 import { CgDarkMode } from "react-icons/cg";
+import { Link } from "react-router-dom";
 
 const MainContainer = styled.main`
   background-color: red;
-  width: 70vw;
-  margin: 3vh auto;
+  margin: 0 auto;
+  padding: 20px;
 
   .title-box {
     display: flex;
@@ -31,16 +32,26 @@ const SearchContainer = styled.section`
     border: none;
   }
 `;
-
-const PokemonContainer = styled.section`
-  display: flex;
+const PokemonContainer = styled(Link)`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  width: 90vw;
+  margin: 0 auto;
   background-color: #fff;
+  border-radius: 5px;
+  text-decoration: none;
+
   .pokemon-box {
     display: flex;
     flex-direction: column;
     width: 20vw;
     border: 1px solid #e5e5e5;
     border-radius: 5px;
+    margin: 1vw;
+    text-align: center;
+    h1 {
+      font-size: 20px;
+    }
   }
 `;
 const ResultContainer = styled.section``;
@@ -79,6 +90,7 @@ const Search = () => {
       (pokemon) => pokemon.name.toLowerCase() === search.toLowerCase()
     );
     if (foundPokemon) {
+      foundPokemon.id = foundPokemon.url.split("/").slice(-2)[0];
       setSelectedPokemon(foundPokemon);
     } else {
       setSelectedPokemon(null);
@@ -160,8 +172,12 @@ const Search = () => {
             const myImageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonImageNumber}.png`;
             const myIdNumber = `${pokemonIdNumber}`.padStart(3, 0);
             return (
-              <PokemonContainer key={pokemon.name}>
-                <div className="pokemon-box">
+              <PokemonContainer key={pokemon.name} to={pokemon.id}>
+                <div
+                  className="pokemon-box"
+                  key={pokemon.name}
+                  onClick={() => setSelectedPokemon(pokemon)}
+                >
                   <p className="pokemonId">#{myIdNumber}</p>
                   <img src={myImageUrl} alt={pokemon.name} />
                   <h1>
