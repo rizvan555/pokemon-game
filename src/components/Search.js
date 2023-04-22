@@ -1,6 +1,49 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { ImBackward } from "react-icons/im";
+import { CgDarkMode } from "react-icons/cg";
+
+const MainContainer = styled.main`
+  background-color: red;
+  width: 70vw;
+  margin: 3vh auto;
+
+  .title-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  }
+`;
+const SearchContainer = styled.section`
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  gap: 1vw;
+  input {
+    width: 40vw;
+    border-radius: 5px;
+    border: none;
+    padding: 5px;
+  }
+  button {
+    border-radius: 5px;
+    border: none;
+  }
+`;
+
+const PokemonContainer = styled.section`
+  display: flex;
+  background-color: #fff;
+  .pokemon-box {
+    display: flex;
+    flex-direction: column;
+    width: 20vw;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+  }
+`;
+const ResultContainer = styled.section``;
 
 const Search = () => {
   const [search, setSearch] = useState("");
@@ -8,6 +51,7 @@ const Search = () => {
   const [selectedPokemon, setSelectedPokemon] = useState(null);
   const [selectedPokemonDetails, setSelectedPokemonDetails] = useState(null);
   const [description, setDescription] = useState("");
+  const [light, setLight] = useState(true);
 
   useEffect(() => {
     fetch("https://pokeapi.co/api/v2/pokemon")
@@ -50,12 +94,26 @@ const Search = () => {
   };
 
   const handleGoBack = () => {
-    window.location.reload();
+    setSelectedPokemon(null);
+    setSelectedPokemonDetails(null);
+    setDescription("");
+    setSearch("");
   };
 
   return (
-    <>
-      <section className="search-container">
+    <MainContainer
+      style={{
+        color: light ? "black" : "red",
+        backgroundColor: light ? "red" : "black",
+        height: "100%",
+      }}
+    >
+      <div className="title-box">
+        <CgDarkMode onClick={() => setLight(!light)}>Light-Dark</CgDarkMode>
+        <h1>Pokédex</h1>
+      </div>
+
+      <SearchContainer>
         <input
           type="text"
           placeholder="Search Pokemon"
@@ -64,11 +122,11 @@ const Search = () => {
           onKeyPress={handleKeyDown}
         />
         <button onClick={searchFunction}>Search</button>
-      </section>
+      </SearchContainer>
 
-      <main>
+      <>
         {selectedPokemonDetails ? (
-          <div className="result-container" style={{ height: "100vh" }}>
+          <ResultContainer style={{ height: "100vh" }}>
             <ImBackward onClick={handleGoBack} />
             <h1>
               {selectedPokemon.name.charAt(0).toUpperCase() +
@@ -93,7 +151,7 @@ const Search = () => {
                 .join(", ")}
             </p>
             <p>{description}</p>
-          </div>
+          </ResultContainer>
         ) : (
           pokemons &&
           pokemons.map((pokemon, imageIndex) => {
@@ -102,7 +160,7 @@ const Search = () => {
             const myImageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonImageNumber}.png`;
             const myIdNumber = `${pokemonIdNumber}`.padStart(3, 0);
             return (
-              <div className="pokemon-container" key={pokemon.name}>
+              <PokemonContainer key={pokemon.name}>
                 <div className="pokemon-box">
                   <p className="pokemonId">#{myIdNumber}</p>
                   <img src={myImageUrl} alt={pokemon.name} />
@@ -111,12 +169,12 @@ const Search = () => {
                       pokemon.name.slice(1)}
                   </h1>
                 </div>
-              </div>
+              </PokemonContainer>
             );
           })
         )}
-      </main>
-    </>
+      </>
+    </MainContainer>
   );
 };
 
