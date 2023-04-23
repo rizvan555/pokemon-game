@@ -87,12 +87,23 @@ const ResultContainer = styled.section`
   .resultImage {
     width: 250px;
     height: 250px;
-    margin-top: -30px;
+    margin-top: -50px;
   }
   .resultType {
     display: flex;
     gap: 10px;
     margin-top: -30px;
+  }
+  .info-container {
+    display: flex;
+    justify-content: space-around;
+    width: 80vw;
+  }
+  .weight-box,
+  .height-box,
+  .moves-box {
+    display: flex;
+    flex-direction: column;
   }
 `;
 
@@ -201,14 +212,22 @@ const Search = () => {
                 <span key={pokemonType.type.name}>{pokemonType.type.name}</span>
               ))}
             </h3>
-            <p>Weight: {selectedPokemonDetails.weight / 10} kg</p>
-            <p>Height: {selectedPokemonDetails.height * 10} cm</p>
-            <p>
-              Moves:{" "}
-              {selectedPokemonDetails.abilities
-                .map((abilityMovie) => abilityMovie.ability.name)
-                .join(", ")}
-            </p>
+            <div className="info-container">
+              <p className="weight-box">
+                Weight <span>{selectedPokemonDetails.weight / 10} kg</span>
+              </p>
+              <p className="height-box">
+                Height <span>{selectedPokemonDetails.height * 10} cm</span>
+              </p>
+              <p className="moves-box">
+                Moves
+                <span>
+                  {selectedPokemonDetails.abilities
+                    .map((abilityMovie) => abilityMovie.ability.name)
+                    .join(", ")}
+                </span>
+              </p>
+            </div>
             <p>{description}</p>
           </ResultContainer>
         ) : (
