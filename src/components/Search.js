@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { ImBackward } from "react-icons/im";
+import { MdArrowBack } from "react-icons/md";
 import { CgDarkMode } from "react-icons/cg";
 import { Link } from "react-router-dom";
 
@@ -17,6 +17,7 @@ const MainContainer = styled.main`
 const SearchContainer = styled.section`
   display: flex;
   justify-content: center;
+  align-items: center;
   margin-bottom: 20px;
   padding: 10px;
   gap: 1vw;
@@ -32,7 +33,7 @@ const SearchContainer = styled.section`
   button {
     border-radius: 20px;
     border: none;
-    padding: 0 10px;
+    padding: 5px 10px;
   }
 `;
 
@@ -68,7 +69,26 @@ const PokemonContainer = styled(Link)`
     }
   }
 `;
-const ResultContainer = styled.section``;
+const ResultContainer = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 70vw;
+  text-align: center;
+  color: #fff;
+  .header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    font-size: 30px;
+    width: 40vw;
+  }
+  .resultType {
+    display: flex;
+    gap: 10px;
+  }
+`;
 
 const Search = () => {
   const [search, setSearch] = useState("");
@@ -140,6 +160,11 @@ const Search = () => {
       </div>
 
       <SearchContainer>
+        <MdArrowBack
+          onClick={handleGoBack}
+          style={{ color: "white", marginRight: "20" }}
+          size="20"
+        />
         <input
           type="text"
           placeholder="Search Pokemon"
@@ -152,13 +177,14 @@ const Search = () => {
 
       <ContainStyle>
         {selectedPokemonDetails ? (
-          <ResultContainer style={{ height: "100vh" }}>
-            <ImBackward onClick={handleGoBack} />
-            <h1>
-              {selectedPokemon.name.charAt(0).toUpperCase() +
-                selectedPokemon.name.slice(1)}
-            </h1>
-            <h3 style={{ display: "flex", gap: "10px" }}>
+          <ResultContainer>
+            <div className="header-container">
+              <h1>
+                {selectedPokemon.name.charAt(0).toUpperCase() +
+                  selectedPokemon.name.slice(1)}
+              </h1>
+            </div>
+            <h3 className="resultType">
               {selectedPokemonDetails.types.map((pokemonType) => (
                 <span key={pokemonType.type.name}>{pokemonType.type.name}</span>
               ))}
@@ -167,7 +193,6 @@ const Search = () => {
               src={selectedPokemonDetails.sprites.front_default}
               alt={selectedPokemon.name}
             />
-
             <p>Weight: {selectedPokemonDetails.weight / 10} kg</p>
             <p>Height: {selectedPokemonDetails.height * 10} cm</p>
             <p>
