@@ -84,9 +84,15 @@ const ResultContainer = styled.section`
     font-size: 30px;
     width: 40vw;
   }
+  .resultImage {
+    width: 250px;
+    height: 250px;
+    margin-top: -30px;
+  }
   .resultType {
     display: flex;
     gap: 10px;
+    margin-top: -30px;
   }
 `;
 
@@ -183,16 +189,18 @@ const Search = () => {
                 {selectedPokemon.name.charAt(0).toUpperCase() +
                   selectedPokemon.name.slice(1)}
               </h1>
+              <p>#{selectedPokemon.id.padStart(3, 0)}</p>
             </div>
+            <img
+              className="resultImage"
+              src={selectedPokemonDetails.sprites.front_default}
+              alt={selectedPokemon.name}
+            />
             <h3 className="resultType">
               {selectedPokemonDetails.types.map((pokemonType) => (
                 <span key={pokemonType.type.name}>{pokemonType.type.name}</span>
               ))}
             </h3>
-            <img
-              src={selectedPokemonDetails.sprites.front_default}
-              alt={selectedPokemon.name}
-            />
             <p>Weight: {selectedPokemonDetails.weight / 10} kg</p>
             <p>Height: {selectedPokemonDetails.height * 10} cm</p>
             <p>
