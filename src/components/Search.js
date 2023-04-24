@@ -36,7 +36,6 @@ const SearchContainer = styled.section`
     padding: 5px 10px;
   }
 `;
-
 const ContainStyle = styled.section`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -116,9 +115,16 @@ const Search = () => {
   const [light, setLight] = useState(true);
 
   useEffect(() => {
-    fetch("https://pokeapi.co/api/v2/pokemon")
-      .then((response) => response.json())
-      .then((json) => setPokemons(json.results));
+    const fetchPokemons = async () => {
+      const response1 = await fetch("https://pokeapi.co/api/v2/pokemon");
+      const json1 = await response1.json();
+      const response2 = await fetch(
+        "https://pokeapi.co/api/v2/pokemon?offset=100&limit=60"
+      );
+      const json2 = await response2.json();
+      setPokemons([...json1.results, ...json2.results]);
+    };
+    fetchPokemons();
   }, []);
 
   useEffect(() => {
