@@ -123,7 +123,7 @@ const ResultContainer = styled.section`
   }
 `;
 
-const Num1 = () => {
+const Num0 = () => {
   const [search, setSearch] = useState("");
   const [pokemons, setPokemons] = useState([]);
   const [selectedPokemon, setSelectedPokemon] = useState(null);
@@ -133,7 +133,7 @@ const Num1 = () => {
   const [numbers, setNumbers] = useState([0, 1, 2, 3, 4, 5]);
 
   useEffect(() => {
-    fetch("https://pokeapi.co/api/v2/pokemon?offset=60&limit=30")
+    fetch("https://pokeapi.co/api/v2/pokemon?offset=30&limit=30")
       .then((response) => response.json())
       .then((json) => setPokemons(json.results));
   }, []);
@@ -188,12 +188,6 @@ const Num1 = () => {
 
       <SearchContainer>
         <div className="left-box">
-          <Link to="/">
-            <MdArrowBack
-              style={{ color: "white", marginRight: "20" }}
-              size="20"
-            />
-          </Link>
           <input
             type="text"
             placeholder="Search Pokemon"
@@ -222,7 +216,7 @@ const Num1 = () => {
                 {selectedPokemon.name.charAt(0).toUpperCase() +
                   selectedPokemon.name.slice(1)}
               </h1>
-              <p>#{selectedPokemon.id.padStart(3, 0)}</p>
+              {/* <p>#{selectedPokemon.id.padStart(3, 0)}</p> */}
             </div>
             <img
               className="resultImage"
@@ -286,4 +280,4 @@ const Num1 = () => {
   );
 };
 
-export default Num1;
+export default Num0;

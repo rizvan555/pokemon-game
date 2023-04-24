@@ -216,7 +216,7 @@ const Num0 = () => {
                 {selectedPokemon.name.charAt(0).toUpperCase() +
                   selectedPokemon.name.slice(1)}
               </h1>
-              <p>#{selectedPokemon.id.padStart(3, 0)}</p>
+              {/* <p>#{selectedPokemon.id.padStart(3, 0)}</p> */}
             </div>
             <img
               className="resultImage"

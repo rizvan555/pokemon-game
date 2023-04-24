@@ -47,6 +47,10 @@ const SearchContainer = styled.section`
     display: flex;
     gap: 10px;
     text-decoration: none;
+    a {
+      color: #fff;
+      text-decoration: none;
+    }
   }
 `;
 const ContainStyle = styled.section`
@@ -224,7 +228,7 @@ const Search = () => {
                 {selectedPokemon.name.charAt(0).toUpperCase() +
                   selectedPokemon.name.slice(1)}
               </h1>
-              <p>#{selectedPokemon.id.padStart(3, 0)}</p>
+              {/* <p> #{selectedPokemon.id.padStart(3, 0)}</p> */}
             </div>
             <img
               className="resultImage"
@@ -261,26 +265,29 @@ const Search = () => {
             const pokemonIdNumber = imageIndex + 1;
             const myImageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonImageNumber}.png`;
             const myIdNumber = `${pokemonIdNumber}`.padStart(3, 0);
-
             return (
-              <PokemonContainer key={pokemon.name} to={pokemon.id}>
+              <Link
+                className="pokemon-container"
+                key={pokemon.name}
+                to={pokemon.id}
+              >
                 <div
                   className="pokemon-box"
-                  key={pokemon.name}
-                  onClick={() => setSelectedPokemon(pokemon)}
                   style={{
-                    backgroundColor: light ? "white" : "red",
-                    color: light ? "#000" : "#fff",
+                    backgroundImage: light
+                      ? "radial-gradient(circle at 90.56% -7.92%, #ffffff 0, #f3f6ff 12.5%, #dde3fa 25%, #cfd8ff 37.5%, #c1ccfe 50%, #b4c1fe 62.5%, #a1b2ff 75%, #748dfa 87.5%, #5a78ff 100%)"
+                      : "radial-gradient(circle at 90.56% -7.92%, #dae0fb 0, #b5c1f4 12.5%, #8d9ee9 25%, #576ed6 37.5%, #3652d1 50%, #132a91 62.5%, #09195d 75%, #040f42 87.5%, #020928 100%)",
                   }}
+                  onClick={() => setSelectedPokemon(pokemon)}
                 >
-                  <p className="pokemonId">#{myIdNumber}</p>
                   <img src={myImageUrl} alt={pokemon.name} />
                   <h1>
                     {pokemon.name.charAt(0).toUpperCase() +
                       pokemon.name.slice(1)}
                   </h1>
+                  <p className="pokemonId">#{myIdNumber}</p>
                 </div>
-              </PokemonContainer>
+              </Link>
             );
           })
         )}

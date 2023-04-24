@@ -19,7 +19,6 @@ const SearchContainer = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
   padding: 10px;
   gap: 1vw;
   .left-box {
@@ -27,7 +26,6 @@ const SearchContainer = styled.section`
     justify-content: center;
     align-items: center;
     gap: 1vw;
-
     input {
       width: 50vw;
       border-radius: 20px;
