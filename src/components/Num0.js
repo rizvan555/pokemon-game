@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import styled from "styled-components";
-import { MdArrowBack } from "react-icons/md";
 import { CgDarkMode } from "react-icons/cg";
+import { MdArrowBack } from "react-icons/md";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 
 const MainContainer = styled.main`
   margin: 0 auto;
@@ -47,6 +47,10 @@ const SearchContainer = styled.section`
     display: flex;
     gap: 10px;
     text-decoration: none;
+    a {
+      color: #fff;
+      text-decoration: none;
+    }
   }
 `;
 const ContainStyle = styled.section`
@@ -119,7 +123,7 @@ const ResultContainer = styled.section`
   }
 `;
 
-const Search = () => {
+const Num0 = () => {
   const [search, setSearch] = useState("");
   const [pokemons, setPokemons] = useState([]);
   const [selectedPokemon, setSelectedPokemon] = useState(null);
@@ -169,13 +173,6 @@ const Search = () => {
     }
   };
 
-  const handleGoBack = () => {
-    setSelectedPokemon(null);
-    setSelectedPokemonDetails(null);
-    setDescription("");
-    setSearch("");
-  };
-
   return (
     <MainContainer
       style={{
@@ -191,11 +188,6 @@ const Search = () => {
 
       <SearchContainer>
         <div className="left-box">
-          <MdArrowBack
-            onClick={handleGoBack}
-            style={{ color: "white", marginRight: "20" }}
-            size="20"
-          />
           <input
             type="text"
             placeholder="Search Pokemon"
@@ -261,7 +253,6 @@ const Search = () => {
             const pokemonIdNumber = imageIndex + 1;
             const myImageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonImageNumber}.png`;
             const myIdNumber = `${pokemonIdNumber}`.padStart(3, 0);
-
             return (
               <PokemonContainer key={pokemon.name} to={pokemon.id}>
                 <div
@@ -289,4 +280,4 @@ const Search = () => {
   );
 };
 
-export default Search;
+export default Num0;
