@@ -1,11 +1,20 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
-const PokemonInfoStyled = styled.div`
+const PokemonInfoStyled = styled.ul`
   width: 60vw;
   text-align: left;
   list-style: none;
   font-size: 10px;
+  li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    p {
+      color: #000;
+      font-weight: bold;
+    }
+  }
 `;
 
 function PokemonInfo() {
@@ -36,7 +45,8 @@ function PokemonInfo() {
       <PokemonInfoStyled>
         {stats.map((stat) => (
           <li key={stat.name}>
-            {stat.name}: {stat.baseStat}
+            <p>{stat.name.charAt(0).toUpperCase() + stat.name.slice(1)}:</p>{" "}
+            {stat.baseStat}
           </li>
         ))}
       </PokemonInfoStyled>

@@ -67,11 +67,12 @@ const ContainStyle = styled.section`
 `;
 const PokemonContainer = styled(Link)`
   text-decoration: none;
+  margin: 0 0 20px 0;
   .pokemon-box {
     display: flex;
     flex-direction: column;
     width: 25vw;
-    height: 37vh;
+    height: 40vh;
     border: 1px solid #e5e5e5;
     border-radius: 10px;
     margin: 1vw;
@@ -95,13 +96,13 @@ const ResultContainer = styled.section`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 80vw;
+  width: 70vw;
   text-align: center;
   color: #fff;
   border: 1px solid #e3e3e3;
   border-radius: 10px;
   padding: 10px 0;
-  margin: 10px;
+  margin: -10px 0 30px 0;
   .header-container {
     display: flex;
     align-items: center;
@@ -112,12 +113,20 @@ const ResultContainer = styled.section`
   .resultImage {
     width: 250px;
     height: 250px;
-    margin-top: -10vh;
+    margin-top: -15vh;
   }
   .resultType {
     display: flex;
+    justify-content: center;
+    align-items: center;
     gap: 10px;
-    margin-top: -6vh;
+    margin-top: -8vh;
+    span {
+      padding: 5px 10px;
+      text-align: center;
+      border-radius: 30px;
+      background-color: #e3e3e3;
+    }
   }
   .info-container {
     display: flex;
