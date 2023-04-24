@@ -3,7 +3,7 @@ import { CgDarkMode } from "react-icons/cg";
 import { MdArrowBack } from "react-icons/md";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import PokemonInfo from "./PokemonInfo";
+import PokemonInfo from "../components/PokemonInfo";
 import pokeLogo from "../resource/images/pokeLogo.png";
 
 const MainContainer = styled.main`
@@ -26,7 +26,6 @@ const SearchContainer = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
   padding: 10px;
   gap: 1vw;
   .left-box {
@@ -34,7 +33,6 @@ const SearchContainer = styled.section`
     justify-content: center;
     align-items: center;
     gap: 1vw;
-
     input {
       width: 50vw;
       border-radius: 20px;
@@ -70,7 +68,6 @@ const ContainStyle = styled.section`
 const PokemonContainer = styled(Link)`
   text-decoration: none;
   margin: 0 0 20px 0;
-
   .pokemon-box {
     display: flex;
     flex-direction: column;
@@ -156,7 +153,7 @@ const ResultContainer = styled.section`
   }
 `;
 
-const Num0 = () => {
+const Num5 = () => {
   const [search, setSearch] = useState("");
   const [pokemons, setPokemons] = useState([]);
   const [selectedPokemon, setSelectedPokemon] = useState(null);
@@ -166,7 +163,7 @@ const Num0 = () => {
   const [numbers, setNumbers] = useState([0, 1, 2, 3, 4, 5]);
 
   useEffect(() => {
-    fetch("https://pokeapi.co/api/v2/pokemon?offset=30&limit=30")
+    fetch("https://pokeapi.co/api/v2/pokemon?offset=180&limit=30")
       .then((response) => response.json())
       .then((json) => setPokemons(json.results));
   }, []);
@@ -217,11 +214,16 @@ const Num0 = () => {
       <div className="title-box">
         <CgDarkMode onClick={() => setLight(!light)}>Light-Dark</CgDarkMode>
         <img className="pokeLogo" src={pokeLogo} alt="logoPokemon" />
-
       </div>
 
       <SearchContainer>
         <div className="left-box">
+          <Link to="/num4">
+            <MdArrowBack
+              style={{ color: "white", marginRight: "20" }}
+              size="20"
+            />
+          </Link>
           <input
             type="text"
             placeholder="Search Pokemon"
@@ -255,7 +257,6 @@ const Num0 = () => {
                 {selectedPokemon.name.charAt(0).toUpperCase() +
                   selectedPokemon.name.slice(1)}
               </h1>
-              {/* <p>#{selectedPokemon.id.padStart(3, 0)}</p> */}
             </div>
             <img
               className="resultImage"
@@ -289,8 +290,8 @@ const Num0 = () => {
         ) : (
           pokemons &&
           pokemons.map((pokemon, imageIndex) => {
-            const pokemonImageNumber = imageIndex + 31;
-            const pokemonIdNumber = imageIndex + 31;
+            const pokemonImageNumber = imageIndex + 151;
+            const pokemonIdNumber = imageIndex + 151;
             const myImageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonImageNumber}.png`;
             const myIdNumber = `${pokemonIdNumber}`.padStart(3, 0);
             return (
@@ -320,4 +321,4 @@ const Num0 = () => {
   );
 };
 
-export default Num0;
+export default Num5;

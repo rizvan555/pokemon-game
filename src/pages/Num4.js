@@ -3,7 +3,7 @@ import { CgDarkMode } from "react-icons/cg";
 import { MdArrowBack } from "react-icons/md";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import PokemonInfo from "./PokemonInfo";
+import PokemonInfo from "../components/PokemonInfo";
 import pokeLogo from "../resource/images/pokeLogo.png";
 
 const MainContainer = styled.main`
