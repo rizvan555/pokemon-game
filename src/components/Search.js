@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { MdArrowBack } from "react-icons/md";
 import { CgDarkMode } from "react-icons/cg";
 import { Link } from "react-router-dom";
+import PokemonInfo from "./PokemonInfo";
+import pokeLogo from "../resource/images/pokeLogo.png";
 
 const MainContainer = styled.main`
   margin: 0 auto;
@@ -12,6 +14,11 @@ const MainContainer = styled.main`
     align-items: center;
     gap: 20px;
     color: #fff;
+    margin: 0 auto;
+    .pokeLogo {
+      width: 50vw;
+      margin-bottom: 30px;
+    }
   }
 `;
 const SearchContainer = styled.section`
@@ -90,9 +97,13 @@ const ResultContainer = styled.section`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 70vw;
+  width: 80vw;
   text-align: center;
   color: #fff;
+  border: 1px solid #e3e3e3;
+  border-radius: 10px;
+  padding: 10px 0;
+  margin: 10px;
   .header-container {
     display: flex;
     align-items: center;
@@ -103,23 +114,35 @@ const ResultContainer = styled.section`
   .resultImage {
     width: 250px;
     height: 250px;
-    margin-top: -50px;
+    margin-top: -15vh;
   }
   .resultType {
     display: flex;
     gap: 10px;
-    margin-top: -30px;
+    margin-top: -8vh;
   }
   .info-container {
     display: flex;
     justify-content: space-around;
-    width: 80vw;
+    width: 70vw;
+    gap: 20px;
+    font-weight: bold;
+    font-size: 13px;
+    span {
+      font-size: 8px;
+      font-weight: 300;
+      color: #000;
+    }
   }
   .weight-box,
   .height-box,
   .moves-box {
     display: flex;
     flex-direction: column;
+  }
+  .description {
+    width: 60vw;
+    font-size: 12px;
   }
 `;
 
@@ -173,13 +196,6 @@ const Search = () => {
     }
   };
 
-  const handleGoBack = () => {
-    setSelectedPokemon(null);
-    setSelectedPokemonDetails(null);
-    setDescription("");
-    setSearch("");
-  };
-
   return (
     <MainContainer
       style={{
@@ -190,16 +206,11 @@ const Search = () => {
     >
       <div className="title-box">
         <CgDarkMode onClick={() => setLight(!light)}>Light-Dark</CgDarkMode>
-        <h1>Pokédex</h1>
+        <img className="pokeLogo" src={pokeLogo} alt="logoPokemon" />
       </div>
 
       <SearchContainer>
         <div className="left-box">
-          <MdArrowBack
-            onClick={handleGoBack}
-            style={{ color: "white", marginRight: "20" }}
-            size="20"
-          />
           <input
             type="text"
             placeholder="Search Pokemon"
@@ -222,13 +233,18 @@ const Search = () => {
 
       <ContainStyle>
         {selectedPokemonDetails ? (
-          <ResultContainer>
+          <ResultContainer
+            style={{
+              backgroundColor: light ? "white" : "blue",
+              color: light ? "red" : "white",
+            }}
+          >
             <div className="header-container">
               <h1>
                 {selectedPokemon.name.charAt(0).toUpperCase() +
                   selectedPokemon.name.slice(1)}
               </h1>
-              {/* <p> #{selectedPokemon.id.padStart(3, 0)}</p> */}
+              {/* <p>#{selectedPokemon.id.padStart(3, 0)}</p> */}
             </div>
             <img
               className="resultImage"
@@ -256,7 +272,8 @@ const Search = () => {
                 </span>
               </p>
             </div>
-            <p>{description}</p>
+            <p className="description">{description}</p>
+            <PokemonInfo />
           </ResultContainer>
         ) : (
           pokemons &&
@@ -266,28 +283,24 @@ const Search = () => {
             const myImageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonImageNumber}.png`;
             const myIdNumber = `${pokemonIdNumber}`.padStart(3, 0);
             return (
-              <Link
-                className="pokemon-container"
-                key={pokemon.name}
-                to={pokemon.id}
-              >
+              <PokemonContainer key={pokemon.name} to={pokemon.id}>
                 <div
                   className="pokemon-box"
-                  style={{
-                    backgroundImage: light
-                      ? "radial-gradient(circle at 90.56% -7.92%, #ffffff 0, #f3f6ff 12.5%, #dde3fa 25%, #cfd8ff 37.5%, #c1ccfe 50%, #b4c1fe 62.5%, #a1b2ff 75%, #748dfa 87.5%, #5a78ff 100%)"
-                      : "radial-gradient(circle at 90.56% -7.92%, #dae0fb 0, #b5c1f4 12.5%, #8d9ee9 25%, #576ed6 37.5%, #3652d1 50%, #132a91 62.5%, #09195d 75%, #040f42 87.5%, #020928 100%)",
-                  }}
+                  key={pokemon.name}
                   onClick={() => setSelectedPokemon(pokemon)}
+                  style={{
+                    backgroundColor: light ? "white" : "red",
+                    color: light ? "#000" : "#fff",
+                  }}
                 >
+                  <p className="pokemonId">#{myIdNumber}</p>
                   <img src={myImageUrl} alt={pokemon.name} />
                   <h1>
                     {pokemon.name.charAt(0).toUpperCase() +
                       pokemon.name.slice(1)}
                   </h1>
-                  <p className="pokemonId">#{myIdNumber}</p>
                 </div>
-              </Link>
+              </PokemonContainer>
             );
           })
         )}
@@ -295,5 +308,4 @@ const Search = () => {
     </MainContainer>
   );
 };
-
 export default Search;

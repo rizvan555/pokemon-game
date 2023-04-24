@@ -3,6 +3,8 @@ import { CgDarkMode } from "react-icons/cg";
 import { MdArrowBack } from "react-icons/md";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import PokemonInfo from "./PokemonInfo";
+import pokeLogo from "../resource/images/pokeLogo.png";
 
 const MainContainer = styled.main`
   margin: 0 auto;
@@ -12,6 +14,11 @@ const MainContainer = styled.main`
     align-items: center;
     gap: 20px;
     color: #fff;
+    margin: 0 auto;
+    .pokeLogo {
+      width: 50vw;
+      margin-bottom: 30px;
+    }
   }
 `;
 const SearchContainer = styled.section`
@@ -90,9 +97,13 @@ const ResultContainer = styled.section`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 70vw;
+  width: 80vw;
   text-align: center;
   color: #fff;
+  border: 1px solid #e3e3e3;
+  border-radius: 10px;
+  padding: 10px 0;
+  margin: 10px;
   .header-container {
     display: flex;
     align-items: center;
@@ -103,23 +114,35 @@ const ResultContainer = styled.section`
   .resultImage {
     width: 250px;
     height: 250px;
-    margin-top: -50px;
+    margin-top: -10vh;
   }
   .resultType {
     display: flex;
     gap: 10px;
-    margin-top: -30px;
+    margin-top: -6vh;
   }
   .info-container {
     display: flex;
     justify-content: space-around;
-    width: 80vw;
+    width: 70vw;
+    gap: 20px;
+    font-weight: bold;
+    font-size: 13px;
+    span {
+      font-size: 8px;
+      font-weight: 300;
+      color: #000;
+    }
   }
   .weight-box,
   .height-box,
   .moves-box {
     display: flex;
     flex-direction: column;
+  }
+  .description {
+    width: 60vw;
+    font-size: 12px;
   }
 `;
 
@@ -183,7 +206,8 @@ const Num2 = () => {
     >
       <div className="title-box">
         <CgDarkMode onClick={() => setLight(!light)}>Light-Dark</CgDarkMode>
-        <h1>Pokédex</h1>
+        <img className="pokeLogo" src={pokeLogo} alt="logoPokemon" />
+
       </div>
 
       <SearchContainer>
@@ -216,7 +240,12 @@ const Num2 = () => {
 
       <ContainStyle>
         {selectedPokemonDetails ? (
-          <ResultContainer>
+          <ResultContainer
+            style={{
+              backgroundColor: light ? "white" : "blue",
+              color: light ? "red" : "white",
+            }}
+          >
             <div className="header-container">
               <h1>
                 {selectedPokemon.name.charAt(0).toUpperCase() +
@@ -250,7 +279,8 @@ const Num2 = () => {
                 </span>
               </p>
             </div>
-            <p>{description}</p>
+            <p className="description">{description}</p>
+            <PokemonInfo />
           </ResultContainer>
         ) : (
           pokemons &&
