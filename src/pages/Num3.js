@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import PokemonInfo from "../components/PokemonInfo";
 import pokeLogo from "../resource/images/pokeLogo.png";
+import ResultContainer from "../components/ResultContainer";
 
 const MainContainer = styled.main`
   margin: 0 auto;
@@ -94,67 +95,7 @@ const PokemonContainer = styled(Link)`
     }
   }
 `;
-const ResultContainer = styled.section`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 70vw;
-  text-align: center;
-  color: #fff;
-  border: 1px solid #e3e3e3;
-  border-radius: 10px;
-  padding: 10px 0;
-  margin: -10px 0 30px 0;
-  .header-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    font-size: 30px;
-    width: 40vw;
-  }
-  .resultImage {
-    width: 250px;
-    height: 250px;
-    margin-top: -15vh;
-  }
-  .resultType {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    margin-top: -8vh;
-    span {
-      padding: 5px 10px;
-      text-align: center;
-      border-radius: 30px;
-      background-color: #e3e3e3;
-    }
-  }
-  .info-container {
-    display: flex;
-    justify-content: space-around;
-    width: 70vw;
-    gap: 20px;
-    font-weight: bold;
-    font-size: 13px;
-    span {
-      font-size: 8px;
-      font-weight: 300;
-      color: #000;
-    }
-  }
-  .weight-box,
-  .height-box,
-  .moves-box {
-    display: flex;
-    flex-direction: column;
-  }
-  .description {
-    width: 60vw;
-    font-size: 12px;
-  }
-`;
+
 const Num3 = () => {
   const [search, setSearch] = useState("");
   const [pokemons, setPokemons] = useState([]);
@@ -249,46 +190,11 @@ const Num3 = () => {
       <ContainStyle>
         {selectedPokemonDetails ? (
           <ResultContainer
-            style={{
-              backgroundColor: light ? "white" : "blue",
-              color: light ? "red" : "white",
-            }}
-          >
-            <div className="header-container">
-              <h1>
-                {selectedPokemon.name.charAt(0).toUpperCase() +
-                  selectedPokemon.name.slice(1)}
-              </h1>
-            </div>
-            <img
-              className="resultImage"
-              src={selectedPokemonDetails.sprites.front_default}
-              alt={selectedPokemon.name}
-            />
-            <h3 className="resultType">
-              {selectedPokemonDetails.types.map((pokemonType) => (
-                <span key={pokemonType.type.name}>{pokemonType.type.name}</span>
-              ))}
-            </h3>
-            <div className="info-container">
-              <p className="weight-box">
-                Weight <span>{selectedPokemonDetails.weight / 10} kg</span>
-              </p>
-              <p className="height-box">
-                Height <span>{selectedPokemonDetails.height * 10} cm</span>
-              </p>
-              <p className="moves-box">
-                Moves
-                <span>
-                  {selectedPokemonDetails.abilities
-                    .map((abilityMovie) => abilityMovie.ability.name)
-                    .join(", ")}
-                </span>
-              </p>
-            </div>
-            <p className="description">{description}</p>
-            <PokemonInfo />
-          </ResultContainer>
+            light={light}
+            selectedPokemon={selectedPokemon}
+            selectedPokemonDetails={selectedPokemonDetails}
+            description={description}
+          />
         ) : (
           pokemons &&
           pokemons.map((pokemon, imageIndex) => {
