@@ -161,6 +161,12 @@ const Num0 = () => {
 
       <SearchContainer>
         <div className="left-box">
+          <Link to="/num0">
+            <MdArrowBack
+              style={{ color: "white", marginRight: "20" }}
+              size="20"
+            />
+          </Link>
           <input
             type="text"
             placeholder="Search Pokemon"

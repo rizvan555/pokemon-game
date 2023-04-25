@@ -11,7 +11,6 @@ const ResultContainerStyled = styled.section`
   border: 1px solid #e3e3e3;
   border-radius: 10px;
   padding: 10px 20px;
-  margin: -10px auto 30px auto;
   .header-container {
     display: flex;
     align-items: center;
